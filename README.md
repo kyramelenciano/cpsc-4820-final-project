@@ -15,7 +15,7 @@ Note: If you have a Mac system you may not be able to install `paddleocr`. The r
     ```
 2. Open the repo with your editor. For example `code PaddleOCR`.
 
-3. Find every occurrence of `PyMuPDF==1.19.0` and replace it with `PyMuPDF-1.20.1`.
+3. Find every occurrence of `PyMuPDF==1.19.0` and replace it with `PyMuPDF==1.20.1`.
 
 4. Install `paddleocr` from your local directory
 
