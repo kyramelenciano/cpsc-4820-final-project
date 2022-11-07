@@ -5,3 +5,4 @@ borb==2.0.27
 pytesseract
 ftfy
 tesseract
+django
