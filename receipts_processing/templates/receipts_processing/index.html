@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="d-flex flex-column h-100 justify-content-center align-items-center">
-  <form method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data" onsubmit='disableSubmitButton()'>
     {% csrf_token %}
   
     <div class="mb-3">
@@ -11,9 +11,17 @@
     </div>
   
     <div class="d-grid">
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button id="submitReceiptButton" type="submit" class="btn btn-success">Submit</button>
     </div>
   </form>
 </div>
+
+<script>
+  function disableSubmitButton() {
+    var btn = document.getElementById('submitReceiptButton');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading...'
+}
+</script>
 
 {% endblock %}
