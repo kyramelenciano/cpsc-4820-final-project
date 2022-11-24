@@ -18,9 +18,9 @@ def readFile(file: UploadedFile):
     if kind is None:
         raise Exception('Unknown file type')
     if kind.mime == 'application/pdf':
-        return getPdfText(file)
+        return (kind.mime, getPdfText(file))
     elif kind.mime in ['image/jpeg']:
-        return getImgText(file)
+        return (kind.mime, getImgText(file))
     raise Exception('Unknown file type')
 
 

@@ -1,26 +1,39 @@
 {% extends "receipts_processing/base.html" %}
 
+{% load humanize %}
 {% block content %}
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Business Name</th>
-            <th>Invoice Date</th>
-            <th>Invoice Total</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        {% for receipt in receipts %}
-        <tr>
-            <td>{{receipt.id}}</td>
-            <td>{{receipt.business_name}}</td>
-            <td>{{receipt.date}}</td>
-            <td>{{receipt.total}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<div class="mt-5">
+<h3 class="mb-3">My Receipts</h3>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>File</th>
+                <th>Business Name</th>
+                <th>Invoice Date</th>
+                <th>Invoice Total</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            {% for receipt in receipts %}
+            <tr>
+                <td>{{receipt.id}}</td>
+                <td>{% if receipt.type == 'application/pdf' %} <i class="bi bi-filetype-pdf" style = "font-size: 1.3rem; color: #b51010"></i>  {% else %} <i class="bi bi-file-image" style="font-size: 1.3rem; color: #e3971e"></i> {% endif %} {{receipt.filename}}</td>
+                <td>{{receipt.business_name}}</td>
+                <td>{{receipt.date}}</td>
+                <td>{{receipt.total}}</td>
+                <td>{{receipt.created_at|naturaltime}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+</div>
+</div>
 
-</table>
+
 {% endblock %}

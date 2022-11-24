@@ -1,8 +1,40 @@
-{% extends "receipts_processing/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
 
-Home
-<a href="/receipts">Go to the app</a>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
 
-{% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <header
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <i class="bi bi-receipt-cutoff" style="font-size: 2.5rem; color: #5e8a8a;"></i> <span class="fs-4">ACME Receipts </span>
+            </a>
+
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            </ul>
+
+            <div class="col-md-3 text-end">
+                <a href="/receipts"><button type="button" class="btn btn-outline-primary me-2">Go to App</button></a>
+            </div>
+        </header>
+        <main class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            Home
+        </main>
+    </div>
+
+</body>
+
+</html>
