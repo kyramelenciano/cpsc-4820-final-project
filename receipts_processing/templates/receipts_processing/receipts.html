@@ -20,14 +20,14 @@
     
         <tbody>
             {% for receipt in receipts %}
-            <tr>
-                <td>{{receipt.id}}</td>
-                <td>{% if receipt.type == 'application/pdf' %} <i class="bi bi-filetype-pdf" style = "font-size: 1.3rem; color: #b51010"></i>  {% else %} <i class="bi bi-file-image" style="font-size: 1.3rem; color: #e3971e"></i> {% endif %} {{receipt.filename}}</td>
-                <td>{{receipt.business_name}}</td>
-                <td>{{receipt.date}}</td>
-                <td>{{receipt.total}}</td>
-                <td>{{receipt.created_at|naturaltime}}</td>
-            </tr>
+                <tr class="anchor-row" onclick="window.location='/receipts/{{receipt.id}}'">
+                    <td>{{receipt.id}}</td>
+                    <td>{% if receipt.type == 'application/pdf' %} <i class="bi bi-filetype-pdf" style = "font-size: 1.3rem; color: #b51010"></i>  {% else %} <i class="bi bi-file-image" style="font-size: 1.3rem; color: #e3971e"></i> {% endif %} {{receipt.filename}}</td>
+                    <td>{{receipt.business_name}}</td>
+                    <td>{{receipt.date}}</td>
+                    <td>{{receipt.total}}</td>
+                    <td>{{receipt.created_at|naturaltime}}</td>
+                </tr>          
             {% endfor %}
         </tbody>
     

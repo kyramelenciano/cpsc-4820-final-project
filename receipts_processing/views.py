@@ -54,7 +54,12 @@ def index(request):
         except BaseException as e:
             print(e)
 
-        return redirect('/receipts')
+        return redirect(f"/receipts/{new_receipt.id}")
+
+
+def receipt_details(request, id):
+    receipt = Receipt.objects.get(id=id)
+    return render(request, "receipts_processing/receipt-details.html", {'receipt': receipt})
 
 
 def parseAmountText(text) -> float | None:
