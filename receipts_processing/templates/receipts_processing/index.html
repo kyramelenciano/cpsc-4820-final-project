@@ -1,32 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "receipts_processing/base.html" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
 
-  <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-</head>
-
-<body>
-  <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-
-      <div class="mb-3">
-        <label for="receiptFile" class="form-label">Upload a receipt</label>
-        <input class="form-control" type="file" name="receipt" id="receiptFile" />
-      </div>
-
-      <div class="d-grid">
-        <button type="submit" class="btn btn-success">Submit</button>
-      </div>
-    </form>
+  <div class="mb-3">
+    <label for="receiptFile" class="form-label">Upload a receipt</label>
+    <input class="form-control" type="file" name="receipt" id="receiptFile" />
   </div>
-</body>
 
-</html>
+  <div class="d-grid">
+    <button type="submit" class="btn btn-success">Submit</button>
+  </div>
+</form>
+{% endblock %}

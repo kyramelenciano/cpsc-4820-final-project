@@ -5,10 +5,20 @@ import os
 from . import filereader
 import spacy
 from spacy import displacy
+from .models import Receipt
 
 dirname = os.path.dirname(__file__)
 model_path = os.path.join(dirname, "ner-models/model-best")
 model = spacy.load(model_path)
+
+
+def home(request):
+    return render(request, 'receipts_processing/home.html')
+
+
+def receipts(request):
+    receipts_list = Receipt.objects.all()
+    return render(request,  'receipts_processing/receipts.html', context={'receipts': receipts_list})
 
 
 def index(request):

@@ -1,0 +1,26 @@
+{% extends "receipts_processing/base.html" %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Business Name</th>
+            <th>Invoice Date</th>
+            <th>Invoice Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for receipt in receipts %}
+        <tr>
+            <td>{{receipt.id}}</td>
+            <td>{{receipt.business_name}}</td>
+            <td>{{receipt.date}}</td>
+            <td>{{receipt.total}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% endblock %}
