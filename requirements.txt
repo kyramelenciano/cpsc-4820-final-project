@@ -8,3 +8,4 @@ tesseract
 django
 psycopg2
 black
+filetype

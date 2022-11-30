@@ -1,5 +1,5 @@
 import re
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render, redirect
 import os
 from . import filereader
@@ -61,8 +61,27 @@ def receipt_details(request, id):
     receipt = Receipt.objects.get(id=id)
     return render(request, "receipts_processing/receipt-details.html", {'receipt': receipt})
 
+def delete(request, id):
+    receipt = Receipt.objects.get(id=id)
+    receipt.delete()
+    return redirect('/receipts')
 
-def parseAmountText(text) -> float | None:
+def download(request, id):
+    receipt = Receipt.objects.get(id=id)
+    path_to_file = os.path.realpath(receipt.file.name)
+    response = FileResponse(open(path_to_file, 'rb'))
+    response['Content-Disposition'] = 'attachment; filename=' + receipt.filename
+    return response
+
+def view_file(request, id):
+    receipt = Receipt.objects.get(id=id)
+    path_to_file = os.path.realpath(receipt.file.name)
+    response = FileResponse(open(path_to_file, 'rb'))
+    response['Content-Disposition'] = 'inline'
+    return response
+
+
+def parseAmountText(text):
     string_amount = re.sub(r"[$CADS\s]", "", text)
     if string_amount == "" or not string_amount.replace('.', '', 1).isnumeric():
         return None

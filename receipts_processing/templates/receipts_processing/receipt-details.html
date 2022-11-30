@@ -1,17 +1,43 @@
-{% extends "receipts_processing/base.html" %}
+{% extends "receipts_processing/base.html" %} 
 {% load humanize %}
-
 {% block content %}
 
-<div class="mt-5">
-<h3 class="mb-3">Receipt details</h3>
-<div>
-    <p><strong>Business Name: </strong> {{receipt.business_name}}</p>
-    <p><strong>Invoice Date: </strong> {{receipt.date}}</p>
-    <p><strong>Invoice Total: </strong> {{receipt.total}}</p>
-    <p>Created {{receipt.created_at|naturaltime}}</p>
+<div class="mt-5 h-75">
+    <div class="row h-100">
+      <div class="col">
+        <h3 class="mb-3">Receipt details</h3>
+        <div>
+          <p><strong>Business Name: </strong> {{receipt.business_name}}</p>
+          <p><strong>Invoice Date: </strong> {{receipt.date}}</p>
+          <p><strong>Invoice Total: </strong> {{receipt.total}}</p>
+          <p>Created {{receipt.created_at|naturaltime}}</p>
+        </div>
+        <div>
+          <a
+            href="/receipts/{{receipt.id}}/file/download"
+            class="btn btn-primary"
+            role="button"
+            ><i class="bi bi-cloud-arrow-down" style="font-size: 1.2rem"></i> Download
+          </a>
+          <form action="/receipts/{{receipt.id}}/delete" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this receipt?')">
+            <button
+              class="btn btn-danger"
+              role="button"
+              type="submit"
+              ><i class="bi bi-trash" style="font-size: 1.2rem"></i> Remove
+            </button>
+        </form>
+        </div>
+      </div>
+      <div class="col-8 h-100">
+        {% if receipt.type == 'application/pdf' %}
+          <embed src="/receipts/{{receipt.id}}/file/view" type="{{receipt.type}}" class="w-100 h-100 rounded">
+        {% else %}
+          <img class="img-fluid rounded w-50" src="/receipts/{{receipt.id}}/file/view"/>
+        {% endif %}
+        
+      </div>
+    </div>
 </div>
-</div>
-
 
 {% endblock %}
