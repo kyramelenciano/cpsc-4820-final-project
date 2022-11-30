@@ -1,6 +1,7 @@
 .idea
 .DS_Store
 __pycache__
-receipts_processing/ner-models/*
+receipts_processing/ner-models/model-best
+receipts_processing/ner-models/model-last
 receipts_processing/migrations/__pycache__
 uploaded-receipts
