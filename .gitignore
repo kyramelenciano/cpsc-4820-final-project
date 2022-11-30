@@ -2,4 +2,5 @@
 .DS_Store
 __pycache__
 receipts_processing/ner-models/*
+receipts_processing/migrations/__pycache__
 uploaded-receipts
