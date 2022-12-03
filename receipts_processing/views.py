@@ -1,6 +1,6 @@
 import re
 from django.http import HttpResponse, FileResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 import os
 from . import filereader
 import spacy
@@ -60,18 +60,18 @@ def new(request):
 
 
 def receipt_details(request, id):
-    receipt = Receipt.objects.get(id=id)
+    receipt = get_object_or_404(Receipt, id=id)
     return render(request, "receipts_processing/receipt-details.html", {'receipt': receipt})
 
 
 def delete(request, id):
-    receipt = Receipt.objects.get(id=id)
+    receipt = get_object_or_404(Receipt, id=id)
     receipt.delete()
     return redirect('/receipts')
 
 
 def download(request, id):
-    receipt = Receipt.objects.get(id=id)
+    receipt = get_object_or_404(Receipt, id=id)
     path_to_file = os.path.realpath(receipt.file.name)
     response = FileResponse(open(path_to_file, 'rb'))
     response['Content-Disposition'] = 'attachment; filename=' + receipt.filename
@@ -79,7 +79,7 @@ def download(request, id):
 
 
 def view_file(request, id):
-    receipt = Receipt.objects.get(id=id)
+    receipt = get_object_or_404(Receipt, id=id)
     path_to_file = os.path.realpath(receipt.file.name)
     response = FileResponse(open(path_to_file, 'rb'))
     response['Content-Disposition'] = 'inline'
