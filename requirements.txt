@@ -9,3 +9,4 @@ django
 psycopg2
 black
 filetype
+jazzmin
