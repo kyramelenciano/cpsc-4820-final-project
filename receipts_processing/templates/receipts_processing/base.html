@@ -42,7 +42,11 @@
                 <a href="/receipts/new" class="btn btn-success" role="button"><i class="bi bi-upload" style="font-size: 1.2rem;" ></i> New Receipt</a>
     
             </div>
-            <div class="col px-5">
+            <div class="col">
+                 <header
+                class="d-flex flex-row-reverse py-3">
+                    <a href="/logout">Log out</a>
+                </header>
                 {% block content %}{% endblock %}
             </div>
         </div>

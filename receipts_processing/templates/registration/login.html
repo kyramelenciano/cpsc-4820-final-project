@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8 vh-100"
+                    style="background-image: url('{% static 'receipts_processing/login-background.jpg' %}'); background-size:cover">
+        
+            </div>
+            <div class="col-4">
+                <div class="container d-flex h-100">
+                    <div class="row justify-content-center align-self-center">
+                        <h2>Log in</h2>
+
+                        {% if form.errors %}
+                            <div class="text-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                              <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                              <input type="{{form.username.widget_type}}" name="{{form.username.name}}" class="form-control" id="{{form.username.id_for_label}}" maxlength="150" autocomplete="username" required autofocus>
+                            </div>
+                            <div class="mb-3">
+                              <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+                              <input type="{{form.password.widget_type}}" name="{{form.password.name}}" class="form-control" id="{{ form.password.id_for_label }}" autocomplete="current-password" required>
+                            </div>
+                   
+                         
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                              </div>
+                            <input type="hidden" name="next" value="{{ next }}">
+                          </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

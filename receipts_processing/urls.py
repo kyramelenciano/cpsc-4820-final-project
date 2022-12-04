@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('receipts/<int:id>/file/view', views.view_file, name='receipt-view'),
     path('receipts/<int:id>', views.receipt_details, name='receipt-details'),
     path('receipts', views.receipts, name='receipts'),
-    path('', views.home, name='home')
+    path('', views.home, name="home"),
+    path('', include('django.contrib.auth.urls'))
 ]
