@@ -46,24 +46,36 @@ def get_credentials():
 
 
 def get_messages(service):
+    """
+    https://developers.google.com/resources/api-libraries/documentation/gmail/v1/python/latest/gmail_v1.users.messages.html#list
+    """
     results = service.users().messages().list(userId='me').execute()
     messages = results.get('messages', [])
     return messages
 
 
 def get_attachment(service, message_id, attachment_id):
+    """
+    https://developers.google.com/resources/api-libraries/documentation/gmail/v1/python/latest/gmail_v1.users.messages.attachments.html#get
+    """
     attachment = service.users().messages().attachments().get(
         userId='me', messageId=message_id, id=attachment_id).execute()
     return attachment
 
 
 def get_message_by_id(service, id):
+    """
+    https://developers.google.com/resources/api-libraries/documentation/gmail/v1/python/latest/gmail_v1.users.messages.html#get
+    """
     message = service.users().messages().get(
         userId='me', id=id).execute()
     return message
 
 
 def trash_message_by_id(service, id):
+    """
+    https://developers.google.com/resources/api-libraries/documentation/gmail/v1/python/latest/gmail_v1.users.messages.html#trash
+    """
     message = service.users().messages().trash(
         userId='me', id=id).execute()
     return message
