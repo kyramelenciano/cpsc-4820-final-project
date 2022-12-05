@@ -9,7 +9,7 @@
     <table class="table table-bordered table-hover rounded">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No.</th>
                 <th>File</th>
                 <th>Business Name</th>
                 <th>Invoice Date</th>
@@ -21,7 +21,7 @@
         <tbody>
             {% for receipt in receipts %}
                 <tr class="anchor-row" onclick="window.location='/receipts/{{receipt.id}}'">
-                    <td>{{receipt.id}}</td>
+                    <td>{{ forloop.counter }}</td>
                     <td>{% if receipt.type == 'application/pdf' %} <i class="bi bi-filetype-pdf" style = "font-size: 1.3rem; color: #b51010"></i>  {% else %} <i class="bi bi-file-image" style="font-size: 1.3rem; color: #e3971e"></i> {% endif %} {{receipt.filename}}</td>
                     <td>{{receipt.business_name}}</td>
                     <td>{{receipt.date}}</td>
