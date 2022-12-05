@@ -5,6 +5,7 @@ from .models import Receipt
 from .forms import NewReceiptForm
 from django.contrib.auth.decorators import login_required
 from .receipts import get_receipt_info_from_file
+from .drive import upload_file
 
 
 def home(request):

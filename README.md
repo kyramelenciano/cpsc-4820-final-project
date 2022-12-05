@@ -76,3 +76,11 @@ python manage.py createsuperuser
 ```
 
 It will ask you to set an username, password and email. After you create the super user, you can log in at http://localhost:8000/admin
+
+## Receipts Received via Gmail
+
+Everytime `python manage.py runserver` is run, Django loads the app twice to be able to see changes whenever it is reloaded. Since the scheduler to read attachments from Gmail every interval of time is located inside the app, this causes the receipts to be processed twice. To bypass this behavior, run the app using:
+
+```bash
+python manage.py runserver --noreload
+```
