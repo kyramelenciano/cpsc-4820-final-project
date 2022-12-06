@@ -7,6 +7,9 @@ from googleapiclient.errors import HttpError
 from .receipts import get_receipt_info_from_file
 from .google.service import create_service
 
+# Gmail quota: https://developers.google.com/gmail/api/reference/quota
+# Quickstar: https://developers.google.com/gmail/api/quickstart/python
+
 
 def get_messages(service):
     """

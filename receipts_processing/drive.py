@@ -3,8 +3,11 @@ from googleapiclient.errors import HttpError
 from django.core.files import File
 from googleapiclient.http import MediaFileUpload
 
+# Drive Quota: https://developers.google.com/drive/api/guides/limits
+
 
 def get_folder_id_by_user_id(service, user_id):
+    # docs: https://developers.google.com/drive/api/v3/reference/files/list
     try:
         # create drive api client
         page_token = None
@@ -31,6 +34,7 @@ def get_folder_id_by_user_id(service, user_id):
 
 
 def create_folder_by_user_id(service, user_id):
+    # docs: https://developers.google.com/drive/api/v3/reference/files/create
     try:
         file_metadata = {
             'name': user_id,
@@ -47,6 +51,7 @@ def create_folder_by_user_id(service, user_id):
 
 
 def upload_file_to_folder(service, file_data,  folder_id):
+    # docs: https://developers.google.com/drive/api/guides/manage-uploads
     try:
         file_metadata = {
             'name': file_data['name'],

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&@!2)7(mstioos7q34jokz1iv*$a7*7yt_5g)xt2fw#ucjw&l9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -131,4 +131,4 @@ LOGIN_URL = '/login'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-GMAIL_SYNC_ENABLED = True
+GMAIL_SYNC_ENABLED = False

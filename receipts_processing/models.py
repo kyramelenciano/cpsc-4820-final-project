@@ -7,8 +7,11 @@ from .drive import upload_file
 
 
 class Receipt(models.Model):
+    # docs: https://docs.djangoproject.com/en/4.1/ref/models/options/
     class Meta:
         db_table = 'receipts'
+
+    # docs: https://docs.djangoproject.com/en/4.1/ref/models/fields/
     file = models.FileField(upload_to="uploaded-receipts", null=True)
     filename = models.CharField(max_length=100, null=True)
     type = models.CharField(max_length=100, null=True)
@@ -22,6 +25,7 @@ class Receipt(models.Model):
 
 @receiver(post_save, sender=Receipt)
 def upload_receipt_to_drive(sender, instance, **kwargs):
+    # docs: https://docs.djangoproject.com/en/4.1/ref/signals/#post-save
     file_data = {
         'path': instance.file.path,
         'name': instance.filename,
