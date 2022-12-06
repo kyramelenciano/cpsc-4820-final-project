@@ -79,8 +79,20 @@ It will ask you to set an username, password and email. After you create the sup
 
 ## Receipts Received via Gmail
 
-Everytime `python manage.py runserver` is run, Django loads the app twice to be able to see changes whenever it is reloaded. Since the scheduler to read attachments from Gmail every interval of time is located inside the app, this causes the receipts to be processed twice. To bypass this behavior, run the app using:
+To access the Google account for this project, use the following credentials:
+
+**E-mail:** receiptsprocessing.cpsc4820@gmail.com
+
+**Password:** cpsc4820
+
+Everytime `python manage.py runserver` is run, Django loads the app twice to be able to reload the app whenever the code changes. Therefore the method `ready` is called every time the app gets initilized. Since we are scheduling the task to read attachments from Gmail inside the `ready` function, it gets scheduled twice, therefore the receipts received via email are processed twice. To bypass this behavior, run the app using:
 
 ```bash
 python manage.py runserver --noreload
 ```
+That will tell Django to run the app once. Keep in mind that the app will not be reloaded automatically if you change the code.
+
+If you want to disable the processing of receipts received via email, set `GMAIL_SYNC_ENABLED = False` in `settings.py`.
+
+Note: Only receipts sent by users registered in the app will be processed.
+
