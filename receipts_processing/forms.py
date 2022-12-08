@@ -14,5 +14,6 @@ def validate_file_type(file: UploadedFile):
 
 
 class NewReceiptForm(forms.Form):
+    # docs: https://docs.djangoproject.com/en/4.1/topics/forms/
     receipt_file = forms.FileField(
         label='Upload a receipt', widget=forms.FileInput(attrs={'class': "form-control"}), validators=[validate_file_type])

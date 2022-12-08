@@ -5,7 +5,6 @@ from .models import Receipt
 from .forms import NewReceiptForm
 from django.contrib.auth.decorators import login_required
 from .receipts import get_receipt_info_from_file
-from .drive import upload_file
 
 
 def home(request):
@@ -22,11 +21,11 @@ def receipts(request):
 def new(request):
     if request.method == 'GET':
         form = NewReceiptForm()
-        return render(request, 'receipts_processing/index.html', {'form': form})
+        return render(request, 'receipts_processing/new-receipt.html', {'form': form})
     elif request.method == 'POST':
         form = NewReceiptForm(request.POST, request.FILES)
         if not form.is_valid():
-            return render(request, 'receipts_processing/index.html', {'form': form})
+            return render(request, 'receipts_processing/new-receipt.html', {'form': form})
 
         receipt_file = form.cleaned_data['receipt_file']
         receipt_info = get_receipt_info_from_file(receipt_file)
