@@ -170,7 +170,7 @@ Before uploading the receipt, we first check if the user folder has been created
 
 The code for receipts back up is located in `receipts_processing/drive.py`.
 
-## Receipts Received via Gmail
+# Receipts Received via Gmail
 
 The code for this feature can be found at `receipts_processing/email_receipts.py`
 
@@ -188,3 +188,7 @@ That will tell Django to run the app once. Keep in mind that the app will not be
 If you want to disable the processing of receipts received via email, set `GMAIL_SYNC_ENABLED = False` in `settings.py`.
 
 Note: Only receipts sent by users registered in the app will be processed.
+
+# NER Model
+
+The code developed for the *CPSC-4830 Data Mining for Data Analytics* final project is included in `receipts_processing/filereader.py`, where the text from each receipt is extracted according to its type, and `receipts_processing/receipts.py`, where the Named Entity Recognition model developed with `Spacy` is applied to the text extracted and the resulting entities are returned. The model is saved at `receipts_processing/ner-models/model-best`.
