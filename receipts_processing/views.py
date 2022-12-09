@@ -2,7 +2,8 @@ from django.http import HttpResponse, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 import os
 from .models import Receipt
-from .forms import NewReceiptForm
+from .forms import NewReceiptForm, NewUserForm
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .receipts import get_receipt_info_from_file
 
@@ -13,7 +14,9 @@ def home(request):
 
 @login_required
 def receipts(request):
-    receipts_list = Receipt.objects.filter(user=request.user)
+    search = request.GET.get('search', '')
+    receipts_list = Receipt.objects.filter(
+        user=request.user, business_name__icontains=search)
     return render(request,  'receipts_processing/receipts.html', context={'receipts': receipts_list})
 
 
@@ -54,7 +57,7 @@ def receipt_details(request, id):
 def delete(request, id):
     receipt = get_object_or_404(Receipt, id=id, user=request.user)
     receipt.delete()
-    return redirect('/receipts')
+    return redirect('receipts')
 
 
 @login_required
@@ -73,3 +76,17 @@ def view_file(request, id):
     response = FileResponse(open(path_to_file, 'rb'))
     response['Content-Disposition'] = 'inline'
     return response
+
+
+def sign_up(request):
+    print(request)
+    if request.method == 'GET':
+        form = NewUserForm()
+        return render(request, "registration/sign-up.html", {'form': form})
+    elif request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("receipts")
+        return render(request, "registration/sign-up.html", {'form': form})

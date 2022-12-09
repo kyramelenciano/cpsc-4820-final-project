@@ -8,8 +8,8 @@
         <h3 class="mb-3">Receipt details</h3>
         <div>
           <p><strong>Business Name: </strong> {{receipt.business_name}}</p>
-          <p><strong>Invoice Date: </strong> {{receipt.date}}</p>
-          <p><strong>Invoice Total: </strong> {{receipt.total}}</p>
+          <p><strong>Invoice Date: </strong> {{receipt.date|date}}</p>
+          <p><strong>Invoice Total: </strong> {{receipt.total|default_if_none:"-"}}</p>
           {% comment %} https://docs.djangoproject.com/en/4.1/ref/contrib/humanize/ {% endcomment %}
           <p>Created {{receipt.created_at|naturaltime}}</p>
         </div>

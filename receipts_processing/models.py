@@ -16,7 +16,7 @@ class Receipt(models.Model):
     filename = models.CharField(max_length=100, null=True)
     type = models.CharField(max_length=100, null=True)
     business_name = models.CharField(max_length=100, null=True)
-    date = models.CharField(max_length=50,  null=True)
+    date = models.DateField()
     total = models.DecimalField(max_digits=10, decimal_places=2,  null=True)
     text = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)

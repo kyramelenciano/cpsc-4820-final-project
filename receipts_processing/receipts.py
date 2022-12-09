@@ -2,6 +2,8 @@ from . import filereader
 import spacy
 import os
 import re
+import dateutil.parser as parser
+from datetime import date
 
 dirname = os.path.dirname(__file__)
 model_path = os.path.join(dirname, "ner-models/model-best")
@@ -24,11 +26,19 @@ def get_receipt_info_from_file(receipt_file):
     return {
         'business_name': businessNameEnt['text'] if businessNameEnt else receipt_file.name,
         'type': type,
-        'date': dateEnt['text'] if dateEnt else None,
+        'date': getDateFromStr(dateEnt['text']) if dateEnt else date.min,
         'total': max(parsedMoneyEnts) if len(
             parsedMoneyEnts) > 0 else None,
         'text': text
     }
+
+
+def getDateFromStr(date_str):
+    try:
+        date_obj = parser.parse(date_str)
+        return date_obj
+    except:
+        return date.min
 
 
 def parseAmountText(text):

@@ -16,6 +16,11 @@
 
     <style>
         .anchor-row { cursor: pointer; }
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: #17a2b8;
+            color: white;
+          }
     </style>
 
 </head>
@@ -32,7 +37,7 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="/receipts" class="nav-link {% if request.path == '/receipts' %} active {% else %} link-dark {% endif %}" aria-current="page">
+                        <a href="/" class="nav-link {% if request.path == '/receipts' %} active {% else %} link-dark {% endif %}" aria-current="page">
     
                             <i class="bi bi-files pe-none me-2" width="16" height="16"></i>
                            
