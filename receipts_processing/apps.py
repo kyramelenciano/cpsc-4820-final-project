@@ -18,5 +18,5 @@ class ReceiptsProcessingConfig(AppConfig):
             # doc: https://apscheduler.readthedocs.io/en/3.x/userguide.html#code-examples
             scheduler = BackgroundScheduler()
             job = scheduler.add_job(
-                fetch_gmail_receipts, 'interval', minutes=5)
+                fetch_gmail_receipts, 'interval', minutes=1)
             scheduler.start()

@@ -48,6 +48,10 @@
                  <header
                 class="d-flex flex-row-reverse py-3">
                     <a href="/logout">Log out</a>
+                    {% if user.is_authenticated %}
+                        <span style="margin-right: 1rem"> Welcome, <strong>{{ user.username }}</strong></span>
+                    {% endif %}
+                    
                 </header>
                 {% block content %}{% endblock %}
             </div>

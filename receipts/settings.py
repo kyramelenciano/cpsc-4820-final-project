@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'receipts.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'receipts_processing',
+        'USER': 'postgres',
+        'PASSWORD': 'kyra',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
