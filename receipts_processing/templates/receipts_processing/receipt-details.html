@@ -7,28 +7,60 @@
       <div class="col">
         <h3 class="mb-3">Receipt details</h3>
         <div>
-          <p><strong>Business Name: </strong> {{receipt.business_name}}</p>
-          <p><strong>Invoice Date: </strong> {{receipt.date|date}}</p>
-          <p><strong>Invoice Total: </strong> {{receipt.total|default_if_none:"-"}}</p>
           {% comment %} https://docs.djangoproject.com/en/4.1/ref/contrib/humanize/ {% endcomment %}
           <p>Created {{receipt.created_at|naturaltime}}</p>
-        </div>
-        <div>
-          <a
-            href="/receipts/{{receipt.id}}/file/download"
-            class="btn btn-primary"
-            role="button"
-            ><i class="bi bi-cloud-arrow-down" style="font-size: 1.2rem"></i> Download
-          </a>
-          <form action="/receipts/{{receipt.id}}/delete" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this receipt?')">
-            <button
+
+          {% if form.errors %}
+          {% for field in form %}
+          <div class="text-danger">
+            {% for error in field.errors %}
+                  {{field.label}}: {{ error|escape }}
+            {% endfor %}
+          </div>
+          {% endfor %}
+        {% endif %}
+
+          <form action="/receipts/{{receipt.id}}" method="post" class="mb-5" onsubmit="disableSaveButton()">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="{{ form.business_name.id_for_label }}" class="form-label">{{form.business_name.label}}</label>
+                <input type="{{form.business_name.widget_type}}" value="{{form.business_name.value}}" name="{{form.business_name.name}}" class="form-control" id="{{form.business_name.id_for_label}}" required>
+              </div>
+              <div class="mb-3">
+                <label for="{{ form.date.id_for_label }}" class="form-label">{{form.date.label}}</label>
+                <input type="{{form.date.widget_type}}" value="{{form.date.value|date:'Y-m-d'}}" name="{{form.date.name}}" class="form-control" id="{{form.date.id_for_label}}">
+              </div>
+              <div class="mb-3">
+                <label for="{{ form.total.id_for_label }}" class="form-label">{{form.total.label}}</label>
+                <input type="{{form.total.widget_type}}" value="{{form.total.value}}" name="{{form.total.name}}" class="form-control" id="{{form.total.id_for_label}}" >
+              </div>
+
+              <div class="d-grid gap-2">
+                <button id="submitReceiptEditButton" type="submit" class="btn btn-success  btn-block"><i class="bi bi-save" style="font-size: 1.2rem"></i> Save</button>
+              </div>
+          </form>
+
+          <div  class="d-grid gap-2 mb-3">
+            <a
+              href="/receipts/{{receipt.id}}/file/download"
+              class="btn btn-primary"
+              role="button"
+              ><i class="bi bi-cloud-arrow-down" style="font-size: 1.2rem"></i> Download
+            </a>
+          </div>
+          <form action="/receipts/{{receipt.id}}/delete" onsubmit="return confirm('Are you sure you want to delete this receipt?')">
+            <div class="d-grid gap-2">
+              <button
               class="btn btn-danger"
               role="button"
               type="submit"
               ><i class="bi bi-trash" style="font-size: 1.2rem"></i> Remove
             </button>
+            </div>
+
         </form>
         </div>
+        
       </div>
       <div class="col-8 h-100">
         {% if receipt.type == 'application/pdf' %}
@@ -40,5 +72,12 @@
       </div>
     </div>
 </div>
+<script>
+  function disableSaveButton() {
+    var btn = document.getElementById('submitReceiptEditButton');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...'
+}
+</script>
 
 {% endblock %}

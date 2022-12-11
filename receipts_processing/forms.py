@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import UploadedFile
 from django import forms
+from .models import Receipt
 import filetype
 
 VALID_FILE_TYPES = ['application/pdf', 'image/jpeg']
@@ -42,3 +43,9 @@ class NewUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class EditReceiptForm(forms.ModelForm):
+    class Meta:
+        model = Receipt
+        fields = ['business_name', 'date', 'total']

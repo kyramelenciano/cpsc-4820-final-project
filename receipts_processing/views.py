@@ -2,7 +2,7 @@ from django.http import HttpResponse, FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 import os
 from .models import Receipt
-from .forms import NewReceiptForm, NewUserForm
+from .forms import NewReceiptForm, NewUserForm, EditReceiptForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .receipts import get_receipt_info_from_file
@@ -51,7 +51,17 @@ def new(request):
 @login_required
 def receipt_details(request, id):
     receipt = get_object_or_404(Receipt, id=id, user=request.user)
-    return render(request, "receipts_processing/receipt-details.html", {'receipt': receipt})
+    if request.method == 'POST':
+        form = EditReceiptForm(request.POST, instance=receipt)
+        if not form.is_valid():
+            return render(request, "receipts_processing/receipt-details.html", {'receipt': receipt,
+                                                                        'form': form})
+        form.save()
+        receipt.refresh_from_db()
+    
+    form = EditReceiptForm(instance=receipt)
+    return render(request, "receipts_processing/receipt-details.html", {'receipt': receipt,
+                                                                        'form': form})
 
 
 @login_required
@@ -80,7 +90,6 @@ def view_file(request, id):
 
 
 def sign_up(request):
-    print(request)
     if request.method == 'GET':
         form = NewUserForm()
         return render(request, "registration/sign-up.html", {'form': form})
